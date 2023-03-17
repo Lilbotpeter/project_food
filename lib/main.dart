@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const Text(
               'FoodHomeworkCommu',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
           ],
         ),
