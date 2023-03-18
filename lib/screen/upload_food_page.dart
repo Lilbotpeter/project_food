@@ -61,7 +61,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
 
     print('Dowload-Link: $urlDownload');
 
-    insertDataToFireStore();
+    insertDataToFireStore(); //insert daTA
   }
 
   //Upload Status %
