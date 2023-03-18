@@ -40,6 +40,35 @@ class _HomeFeedState extends State<HomeFeed> {
     });
   }
 
+  Widget showImage(int index) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.5,
+      height: MediaQuery.of(context).size.width * 0.5,
+      child: Image.network(
+        personModels[index].pathImage,
+      ),
+    );
+  }
+
+  Widget showName(int index) {
+    return Text(
+      personModels[index].name,
+      style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget showEmail(int index) {
+    return Text(
+      personModels[index].email,
+    );
+  }
+
+  Widget showPhone(int index) {
+    return Text(
+      personModels[index].phone,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +78,16 @@ class _HomeFeedState extends State<HomeFeed> {
             child: ListView.builder(
               itemCount: personModels.length,
               itemBuilder: (BuildContext buildContext, int index) {
-                return Text(personModels[index].name);
+                return Card(
+                  child: Column(children: <Widget>[
+                    showImage(index),
+                    showName(
+                      index,
+                    ),
+                    showEmail(index),
+                    showPhone(index),
+                  ]),
+                );
               },
             ),
           ),
