@@ -1,13 +1,18 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_food/api/firebase_api.dart'; //import api for upload
 import 'package:project_food/main.dart';
+import 'package:project_food/screen/home_feed.dart';
 import 'package:project_food/widgets/button_widget.dart';
 import 'package:path/path.dart'; //import for basename
+import 'package:project_food/widgets/text_field_data.dart';
+
+import 'package:project_food/widgets/text_field_input.dart';
 
 class UploadFoodPage extends StatefulWidget {
   const UploadFoodPage({Key? key}) : super(key: key);
@@ -20,6 +25,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   UploadTask? task;
   File? file; //file can null
   PlatformFile? pickedFile;
+  String? email, name, phone, urlDownload;
 
   //In&Out File Part
   //Function selectFile
@@ -38,8 +44,6 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     });
   }
 
-  //Future
-
   //Function uploadFile
   Future uploadFile() async {
     if (file == null) return;
@@ -53,9 +57,11 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     if (task == null) return;
 
     final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
+    urlDownload = await snapshot.ref.getDownloadURL();
 
     print('Dowload-Link: $urlDownload');
+
+    insertDataToFireStore();
   }
 
   //Upload Status %
@@ -92,6 +98,109 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
         },
       );
 
+  //Insert Data To firebase
+  Future<void> insertDataToFireStore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    final docUser =
+        FirebaseFirestore.instance.collection('Person').doc(); //Person document
+
+    Map<String, dynamic> dataMap = Map(); //dynamic = data type everything
+    dataMap['Email'] = email;
+    dataMap['ImageP'] = urlDownload;
+    dataMap['Name'] = name;
+    dataMap['Phone'] = phone;
+    dataMap['Uid'] = docUser.id; // UID Person
+    await firestore.collection('Person').doc().set(dataMap).then((value) {
+      print('Insert Success');
+      MaterialPageRoute route = MaterialPageRoute(
+        builder: (value) => HomeFeed(),
+      ); //Route to Home_feed
+      //Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
+    });
+  }
+
+  Widget nameForm(context) {
+    return TextField(
+      onChanged: (value) {
+        //value = String stirng
+        name = value.trim(); //cut space font and back
+      },
+      decoration: InputDecoration(
+        icon: Icon(Icons.person),
+        border:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        enabledBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        filled: true,
+        contentPadding: const EdgeInsets.all(8),
+      ),
+      keyboardType: TextInputType.name,
+    );
+  }
+
+  Widget emailForm(context) {
+    return TextField(
+      onChanged: (value) {
+        email = value.trim();
+      },
+      decoration: InputDecoration(
+        icon: Icon(Icons.email_outlined),
+        border:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        enabledBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        filled: true,
+        contentPadding: const EdgeInsets.all(8),
+      ),
+      keyboardType: TextInputType.emailAddress,
+    );
+  }
+
+  Widget phoneForm(context) {
+    return TextField(
+      onChanged: (value) {
+        phone = value.trim();
+      },
+      decoration: InputDecoration(
+        icon: Icon(Icons.phone),
+        border:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        enabledBorder:
+            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+        filled: true,
+        contentPadding: const EdgeInsets.all(8),
+      ),
+      keyboardType: TextInputType.phone,
+    );
+  }
+
+  //Form Input
+  Widget showForm(context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          nameForm(context),
+          SizedBox(
+            height: 12.0,
+          ),
+          emailForm(context),
+          SizedBox(
+            height: 12.0,
+          ),
+          phoneForm(context),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final filename = file != null
@@ -104,10 +213,10 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
       //   ),
       body: Container(
         padding: EdgeInsets.all(32),
-        child: Center(
+        child: Container(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          //mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
             if (pickedFile != null)
               Expanded(
                 child: Container(
@@ -128,18 +237,22 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
               height: 8,
             ),
             Text(
-              filename,
+              ('$filename'),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(
-              height: 48.0,
+              height: 15.0,
             ), //Under filename for "Spacebar naja"
+            showForm(context),
+            SizedBox(
+              height: 15.0,
+            ),
             ButtonWidget(
                 //Button Upload file
-                icon: Icons.attach_file,
+                icon: Icons.upload_file_sharp,
                 text: 'Upload File',
                 onClick: uploadFile),
             SizedBox(
