@@ -11,6 +11,7 @@ import 'screen/home_feed.dart';
 import 'screen/upload_food_page.dart';
 import 'package:project_food/responsive/responsive_layout.dart';
 import 'package:project_food/widget_tree.dart';
+import 'package:project_food/screen/edit_person.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Display(),
     InsertData(),
     UploadFoodPage(),
+    EditPage()
   ];
 
   void onTabTap(int index) {
@@ -110,6 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.food_bank),
               label: 'Food Upload',
+              backgroundColor: Color.fromARGB(255, 248, 60, 2)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Update',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
         ],
       ),

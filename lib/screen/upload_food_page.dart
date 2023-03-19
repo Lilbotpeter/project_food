@@ -13,6 +13,7 @@ import 'package:path/path.dart'; //import for basename
 import 'package:project_food/widgets/text_field_data.dart';
 
 import 'package:project_food/widgets/text_field_input.dart';
+import 'package:project_food/screen/edit_person.dart';
 
 class UploadFoodPage extends StatefulWidget {
   const UploadFoodPage({Key? key}) : super(key: key);
@@ -25,7 +26,19 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   UploadTask? task;
   File? file; //file can null
   PlatformFile? pickedFile;
-  String? email, name, phone, urlDownload;
+  String? urlDownload;
+  String? food_id,
+      food_name,
+      food_image,
+      food_video,
+      food_level,
+      food_ingredients,
+      food_solution,
+      food_type,
+      food_description,
+      food_time,
+      food_nation,
+      food_point;
 
   //In&Out File Part
   //Function selectFile
@@ -103,15 +116,23 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     final docUser =
-        FirebaseFirestore.instance.collection('Person').doc(); //Person document
+        FirebaseFirestore.instance.collection('Foods').doc(); //Person document
 
     Map<String, dynamic> dataMap = Map(); //dynamic = data type everything
-    dataMap['Email'] = email;
-    dataMap['ImageP'] = urlDownload;
-    dataMap['Name'] = name;
-    dataMap['Phone'] = phone;
-    dataMap['Uid'] = docUser.id; // UID Person
-    await firestore.collection('Person').doc().set(dataMap).then((value) {
+    dataMap['Food_id'] = food_id;
+    dataMap['Food_Name'] = food_name;
+    dataMap['Food_Image'] = food_image;
+    dataMap['Food_Video'] = food_video;
+    dataMap['Food_Level'] = food_level;
+    dataMap['Food_Ingredients'] = food_ingredients;
+    dataMap['Food_Solution'] = food_solution;
+    dataMap['Food_Type'] = food_type;
+    dataMap['Food_Description'] = food_description;
+    dataMap['Food_Time'] = food_time;
+    dataMap['Food_Nation'] = food_nation;
+    dataMap['Food_Point'] = food_point;
+
+    await firestore.collection('Foods').doc().set(dataMap).then((value) {
       print('Insert Success');
       MaterialPageRoute route = MaterialPageRoute(
         builder: (value) => HomeFeed(),
@@ -120,14 +141,14 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     });
   }
 
-  Widget nameForm(context) {
+  Widget name(context) {
     return TextField(
       onChanged: (value) {
         //value = String stirng
-        name = value.trim(); //cut space font and back
+        food_name = value.trim(); //cut space font and back
       },
       decoration: InputDecoration(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.format_align_center),
         border:
             OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
         focusedBorder:
@@ -141,13 +162,13 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     );
   }
 
-  Widget emailForm(context) {
+  Widget ingredients(context) {
     return TextField(
       onChanged: (value) {
-        email = value.trim();
+        food_ingredients = value.trim();
       },
       decoration: InputDecoration(
-        icon: Icon(Icons.email_outlined),
+        icon: Icon(Icons.dinner_dining),
         border:
             OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
         focusedBorder:
@@ -161,13 +182,13 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     );
   }
 
-  Widget phoneForm(context) {
+  Widget description(context) {
     return TextField(
       onChanged: (value) {
-        phone = value.trim();
+        food_description = value.trim();
       },
       decoration: InputDecoration(
-        icon: Icon(Icons.phone),
+        icon: Icon(Icons.description),
         border:
             OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
         focusedBorder:
@@ -187,15 +208,15 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          nameForm(context),
+          name(context),
           SizedBox(
             height: 12.0,
           ),
-          emailForm(context),
+          ingredients(context),
           SizedBox(
             height: 12.0,
           ),
-          phoneForm(context),
+          description(context),
         ],
       ),
     );
