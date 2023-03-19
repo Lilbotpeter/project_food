@@ -5,6 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_food/model/profile_model.dart';
 import '../auth.dart';
 
+//Authen Current User *
+final User? user = Auth().currentUser;
+
 class HomeFeed extends StatefulWidget {
   const HomeFeed({Key? key}) : super(key: key);
 
@@ -40,6 +43,24 @@ class _HomeFeedState extends State<HomeFeed> {
     });
   }
 
+  //logout *
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+
+  //Widget Show Current User *
+  Widget _userUID() {
+    return Text(user?.email ?? 'User email');
+  }
+
+  //Widget Logout Button *
+  Widget _signOutButton() {
+    return ElevatedButton(
+      onPressed: signOut,
+      child: const Text('Sign Out!'),
+    );
+  }
+
   Widget showImage(int index) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
@@ -72,6 +93,21 @@ class _HomeFeedState extends State<HomeFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leadingWidth: 30,
+        leading: Row(
+          children: [
+            const SizedBox(
+              width: 100,
+            ),
+            _userUID()
+          ],
+        ),
+        actions: [
+          _signOutButton(),
+        ],
+        backgroundColor: Colors.orangeAccent,
+      ),
       body: SafeArea(
         child: Center(
           child: Container(
