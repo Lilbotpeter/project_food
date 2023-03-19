@@ -29,7 +29,6 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   String? urlDownload;
   String? food_id,
       food_name,
-      food_image,
       food_video,
       food_level,
       food_ingredients,
@@ -121,7 +120,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     Map<String, dynamic> dataMap = Map(); //dynamic = data type everything
     dataMap['Food_id'] = food_id;
     dataMap['Food_Name'] = food_name;
-    dataMap['Food_Image'] = food_image;
+    dataMap['Food_Image'] = urlDownload;
     dataMap['Food_Video'] = food_video;
     dataMap['Food_Level'] = food_level;
     dataMap['Food_Ingredients'] = food_ingredients;
@@ -158,7 +157,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
         filled: true,
         contentPadding: const EdgeInsets.all(8),
       ),
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.text,
     );
   }
 
@@ -178,28 +177,27 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
         filled: true,
         contentPadding: const EdgeInsets.all(8),
       ),
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
     );
   }
 
   Widget description(context) {
     return TextField(
-      onChanged: (value) {
-        food_description = value.trim();
-      },
-      decoration: InputDecoration(
-        icon: Icon(Icons.description),
-        border:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        focusedBorder:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        enabledBorder:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        filled: true,
-        contentPadding: const EdgeInsets.all(8),
-      ),
-      keyboardType: TextInputType.phone,
-    );
+        onChanged: (value) {
+          food_description = value.trim();
+        },
+        decoration: InputDecoration(
+          icon: Icon(Icons.description),
+          border:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          enabledBorder:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          filled: true,
+          contentPadding: const EdgeInsets.all(8),
+        ),
+        keyboardType: TextInputType.text);
   }
 
   //Form Input
