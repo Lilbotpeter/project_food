@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //Auth
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_food/model/profile_model.dart';
+import 'package:project_food/screen/edit_person.dart';
+import 'package:project_food/screen/upload_food_page.dart';
 import '../auth.dart';
 
 //Authen Current User *
@@ -122,6 +124,28 @@ class _HomeFeedState extends State<HomeFeed> {
                     ),
                     showEmail(index),
                     showPhone(index),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print("Success");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditPage()),
+                          );
+                        },
+                        child: Text('แก้ไขข้อมูล'),
+                      ),
+                    ),
+                    // IconButton(
+                    //   icon: new Icon(Icons.edit),
+                    //   highlightColor: Colors.pink,
+                    //   onPressed: () {
+                    //     print("kuay");
+                    //     MaterialPageRoute route = MaterialPageRoute(
+                    //       builder: (Index) => UploadFoodPage(),
+                    //     );
+                    //   },
+                    // ),
                   ]),
                 );
               },
