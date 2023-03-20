@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //Auth
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_food/model/food_model.dart';
 import 'package:project_food/model/profile_model.dart';
+
+// import 'package:project_food/screen/edit_person.dart';
+// import 'package:project_food/screen/upload_food_page.dart';
+
 import '../auth.dart';
 
 class HomeFeed extends StatefulWidget {
@@ -50,6 +55,16 @@ class _HomeFeedState extends State<HomeFeed> {
               itemCount: personModels.length,
               itemBuilder: (BuildContext buildContext, int index) {
                 return Text(personModels[index].name);
+                return Card(
+                  child: Column(children: <Widget>[
+                    showImage(index),
+                    showName(
+                      index,
+                    ),
+                    showEmail(index),
+                    showPhone(index),
+                  ]),
+                );
               },
             ),
           ),

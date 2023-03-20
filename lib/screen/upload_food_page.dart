@@ -14,6 +14,8 @@ import 'package:project_food/widgets/text_field_data.dart';
 
 import 'package:project_food/widgets/text_field_input.dart';
 
+//import 'package:project_food/screen/edit_person.dart';
+
 class UploadFoodPage extends StatefulWidget {
   const UploadFoodPage({Key? key}) : super(key: key);
 
@@ -25,7 +27,19 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   UploadTask? task;
   File? file; //file can null
   PlatformFile? pickedFile;
-  String? email, name, phone, urlDownload;
+  String? food_id,
+      food_name,
+      food_image,
+      food_video,
+      food_level,
+      food_ingredients,
+      food_solution,
+      food_type,
+      food_description,
+      food_time,
+      food_nation,
+      food_point,
+      urlDownload;
 
   //In&Out File Part
   //Function selectFile
@@ -113,9 +127,9 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     dataMap['Uid'] = docUser.id; // UID Person
     await firestore.collection('Person').doc().set(dataMap).then((value) {
       print('Insert Success');
-      MaterialPageRoute route = MaterialPageRoute(
-        builder: (value) => HomeFeed(),
-      ); //Route to Home_feed
+      // MaterialPageRoute route = MaterialPageRoute(
+      //   builder: (value) => HomeFeed(),
+      // ); //Route to Home_feed
       //Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
     });
   }
@@ -161,24 +175,23 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     );
   }
 
-  Widget phoneForm(context) {
+  Widget phoneFrom(context) {
     return TextField(
-      onChanged: (value) {
-        phone = value.trim();
-      },
-      decoration: InputDecoration(
-        icon: Icon(Icons.phone),
-        border:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        focusedBorder:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        enabledBorder:
-            OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-        filled: true,
-        contentPadding: const EdgeInsets.all(8),
-      ),
-      keyboardType: TextInputType.phone,
-    );
+        onChanged: (value) {
+          food_ingredients = value.trim();
+        },
+        decoration: InputDecoration(
+          icon: Icon(Icons.description),
+          border:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          enabledBorder:
+              OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+          filled: true,
+          contentPadding: const EdgeInsets.all(8),
+        ),
+        keyboardType: TextInputType.text);
   }
 
   //Form Input
@@ -187,15 +200,15 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          nameForm(context),
+          nameFrom(context),
           SizedBox(
             height: 12.0,
           ),
-          emailForm(context),
+          emailFrom(context),
           SizedBox(
             height: 12.0,
           ),
-          phoneForm(context),
+          phoneFrom(context),
         ],
       ),
     );
