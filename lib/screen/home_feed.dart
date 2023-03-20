@@ -145,7 +145,6 @@ class _HomeFeedState extends State<HomeFeed> {
                               .doc('XgUlqKQ5plXGZZJ18uEE');
                           docker.update({
                             'Food_Description': 'orimsa',
-                            'Food_Image': '',
                             'Food_Ingredients': 'orimsa',
                             'Food_Name': 'orimsa',
                           });
