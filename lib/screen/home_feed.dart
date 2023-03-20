@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //Auth
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_food/model/profile_model.dart';
-import 'package:project_food/screen/edit_person.dart';
+
 import 'package:project_food/screen/upload_food_page.dart';
 import '../auth.dart';
+import '../model/food_model.dart';
 
 //Authen Current User *
 final User? user = Auth().currentUser;
@@ -18,28 +18,32 @@ class HomeFeed extends StatefulWidget {
 }
 
 class _HomeFeedState extends State<HomeFeed> {
-  List<PersonModel> personModels = [];
+  List<FoodModel> foodModels = [];
 
   //Method ที่ทำงาน อ่านค่าที่อยู่ใน fire store
   @override
   void initState() {
+    //print("Program Start I Kuay");
     super.initState();
     readData();
   }
 
   Future<void> readData() async {
+    print("Program Start I Kuay");
     //read data
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference collectionReference =
-        firestore.collection('Person'); //collection Person
+        firestore.collection('Foods'); //collection Person  //await
     await collectionReference.snapshots().listen((response) {
       List<DocumentSnapshot> snapshots =
           response.docs; //snapshot from firestore [array]
       for (var snapshot in snapshots) {
-        PersonModel personModel =
-            PersonModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        //print("object");
+        FoodModel foodModel =
+            FoodModel.fromMap(snapshot.data() as Map<String, dynamic>);
         setState(() {
-          personModels.add(personModel);
+          //print("object");
+          foodModels.add(foodModel);
         });
       }
     });
@@ -68,30 +72,32 @@ class _HomeFeedState extends State<HomeFeed> {
       width: MediaQuery.of(context).size.width * 0.5,
       height: MediaQuery.of(context).size.width * 0.5,
       child: Image.network(
-        personModels[index].pathImage,
+        foodModels[index].food_image,
       ),
     );
   }
 
   Widget showName(int index) {
     return Text(
-      personModels[index].name,
-      style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold),
+      foodModels[index].food_name,
     );
   }
 
-  Widget showEmail(int index) {
+  Widget showDescription(int index) {
     return Text(
-      personModels[index].email,
+      foodModels[index].food_description,
     );
   }
 
-  Widget showPhone(int index) {
+  Widget showIngredients(int index) {
     return Text(
-      personModels[index].phone,
+      foodModels[index].food_ingredients,
     );
   }
 
+//-------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,26 +120,49 @@ class _HomeFeedState extends State<HomeFeed> {
         child: Center(
           child: Container(
             child: ListView.builder(
-              itemCount: personModels.length,
+              itemCount: foodModels.length,
               itemBuilder: (BuildContext buildContext, int index) {
                 return Card(
                   child: Column(children: <Widget>[
-                    showImage(index),
+                    Text('Kuay'),
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.width * 0.5,
+                        child: Image.network(
+                          foodModels[index].food_image,
+                        )),
                     showName(
                       index,
                     ),
-                    showEmail(index),
-                    showPhone(index),
+                    showDescription(index),
+                    showIngredients(index),
+
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          print("Success");
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => EditPage()),
-                          );
+                          final docker = FirebaseFirestore.instance
+                              .collection('Foods')
+                              .doc('XgUlqKQ5plXGZZJ18uEE');
+                          docker.update({
+                            'Food_Description': 'orimsa',
+                            'Food_Image': '',
+                            'Food_Ingredients': 'orimsa',
+                            'Food_Name': 'orimsa',
+                          });
                         },
                         child: Text('แก้ไขข้อมูล'),
+                      ),
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // foodModels.
+                          final docker = FirebaseFirestore.instance
+                              .collection('Foods')
+                              .doc('58LlW7VUDtdcD2M5ptXG');
+                          docker.delete();
+                        },
+                        child: Text('ลบข้อมูล'),
                       ),
                     ),
                     // IconButton(

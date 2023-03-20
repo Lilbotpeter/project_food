@@ -13,7 +13,6 @@ import 'package:path/path.dart'; //import for basename
 import 'package:project_food/widgets/text_field_data.dart';
 
 import 'package:project_food/widgets/text_field_input.dart';
-import 'package:project_food/screen/edit_person.dart';
 
 class UploadFoodPage extends StatefulWidget {
   const UploadFoodPage({Key? key}) : super(key: key);
