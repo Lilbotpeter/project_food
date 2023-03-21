@@ -25,8 +25,8 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   UploadTask? task;
   File? file; //file can null
   PlatformFile? pickedFile;
-  String? urlDownload;
-  String? food_id,
+  String? food_id;
+  String? urlDownload,
       food_name,
       food_video,
       food_level,
@@ -114,7 +114,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     final docUser =
-        FirebaseFirestore.instance.collection('Foods').doc(); //Person document
+        FirebaseFirestore.instance.collection('Foods').doc(); //Foods document
 
     Map<String, dynamic> dataMap = Map(); //dynamic = data type everything
     dataMap['Food_id'] = food_id;

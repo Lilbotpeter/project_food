@@ -29,7 +29,7 @@ class FoodModel {
       this.food_point);
 
   FoodModel.fromMap(Map<String, dynamic> dataMap) {
-    //food_id = dataMap['Food_id'];
+    food_id = dataMap['Food_id'];
     food_name = dataMap['Food_Name'];
     food_image = dataMap['Food_Image'];
     //food_video = dataMap['Food_Video'];

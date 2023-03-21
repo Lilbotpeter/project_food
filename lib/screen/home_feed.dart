@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_food/screen/upload_food_page.dart';
 import '../auth.dart';
 import '../model/food_model.dart';
+import '../screen/deletepage.dart';
 
 //Authen Current User *
 final User? user = Auth().currentUser;
@@ -19,8 +20,11 @@ class HomeFeed extends StatefulWidget {
 
 class _HomeFeedState extends State<HomeFeed> {
   List<FoodModel> foodModels = [];
-
+  final edit_name = TextEditingController();
+  final edit_description = TextEditingController();
+  final edit_ingredients = TextEditingController();
   //Method ที่ทำงาน อ่านค่าที่อยู่ใน fire store
+
   @override
   void initState() {
     //print("Program Start I Kuay");
@@ -28,10 +32,17 @@ class _HomeFeedState extends State<HomeFeed> {
     readData();
   }
 
+// _HomeFeedState(String id, {Key? key}) : super(key: key) {
+//    // _documentReference = FirebaseFirestore.instance.collection('Foods').doc(id);
+//    // _future = _documentReference.get();
+//   }
+
   Future<void> readData() async {
     print("Program Start I Kuay");
+
     //read data
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     CollectionReference collectionReference =
         firestore.collection('Foods'); //collection Person  //await
     await collectionReference.snapshots().listen((response) {
@@ -41,6 +52,8 @@ class _HomeFeedState extends State<HomeFeed> {
         //print("object");
         FoodModel foodModel =
             FoodModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        foodModel.food_id = snapshot.id;
+
         setState(() {
           //print("object");
           foodModels.add(foodModel);
@@ -96,7 +109,13 @@ class _HomeFeedState extends State<HomeFeed> {
   }
 
 //-------------------------------------------------------------------------------------
+//final collectionRef = FirebaseFirestore.instance.collection('Foods');
 
+// Replace 'AUTO_GENERATED_ID' with the ID of the document you want to delete
+////final documentRef = collectionRef.doc('AUTO_GENERATED_ID');
+
+// Delete the document
+//documentRef.delete();
 //-------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -142,11 +161,11 @@ class _HomeFeedState extends State<HomeFeed> {
                         onPressed: () {
                           final docker = FirebaseFirestore.instance
                               .collection('Foods')
-                              .doc('XgUlqKQ5plXGZZJ18uEE');
+                              .doc(foodModels[index].food_name);
                           docker.update({
-                            'Food_Description': 'orimsa',
-                            'Food_Ingredients': 'orimsa',
-                            'Food_Name': 'orimsa',
+                            'Food_Description': edit_name,
+                            'Food_Ingredients': edit_description,
+                            'Food_Name': edit_ingredients,
                           });
                         },
                         child: Text('แก้ไขข้อมูล'),
@@ -155,10 +174,13 @@ class _HomeFeedState extends State<HomeFeed> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          // foodModels.
+                          print('Start NaJa');
+
+                          print(foodModels[index].food_id);
                           final docker = FirebaseFirestore.instance
                               .collection('Foods')
-                              .doc('58LlW7VUDtdcD2M5ptXG');
+                              .doc(foodModels[index].food_id);
+                          //docker.delete();
                           docker.delete();
                         },
                         child: Text('ลบข้อมูล'),
