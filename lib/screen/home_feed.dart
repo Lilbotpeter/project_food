@@ -74,8 +74,14 @@ class _HomeFeedState extends State<HomeFeed> {
   //Widget Logout Button *
   Widget _signOutButton() {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          primary: Colors.red,
+          textStyle: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          )),
       onPressed: signOut,
-      child: const Text('Sign Out!'),
+      child: const Text('ออกจากระบบ'),
     );
   }
 
@@ -163,7 +169,7 @@ class _HomeFeedState extends State<HomeFeed> {
               itemBuilder: (BuildContext buildContext, int index) {
                 return Card(
                   child: Column(children: <Widget>[
-                    Text('Kuay'),
+                    Text(''),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: MediaQuery.of(context).size.width * 0.5,
@@ -178,6 +184,12 @@ class _HomeFeedState extends State<HomeFeed> {
 
                     Center(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.amber,
+                            textStyle: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
                         onPressed: () {
                           print('Start NaJa');
 
@@ -259,6 +271,12 @@ class _HomeFeedState extends State<HomeFeed> {
                     ),
                     Center(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.redAccent,
+                            textStyle: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
                         onPressed: () {
                           print('Start NaJa');
 
