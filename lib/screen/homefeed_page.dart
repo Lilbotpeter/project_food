@@ -124,7 +124,56 @@ class _HomepageFeedState extends State<HomepageFeed> {
                     showName(
                       index,
                     ),
-
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        onPressed: () {
+                          print('Show Start');
+                          readData();
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('แก้ไขสูตรอาหาร'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("ชื่อสูตรอาหาร"),
+                                      Text(
+                                        foodModels[index].food_name,
+                                      ),
+                                      Text("วัตถุดิบ"),
+                                      Text(
+                                        foodModels[index].food_ingredients,
+                                      ),
+                                      Text("รายละเอียด"),
+                                      Text(
+                                        foodModels[index].food_description,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('ยืนยันการแก้ไข'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text('ดูรายละเอียดสูตรอาหาร'),
+                      ),
+                    ),
                     // IconButton(
                     //   icon: new Icon(Icons.edit),
                     //   highlightColor: Colors.pink,
