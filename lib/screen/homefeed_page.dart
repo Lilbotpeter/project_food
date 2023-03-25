@@ -140,7 +140,7 @@ class _HomepageFeedState extends State<HomepageFeed> {
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('แก้ไขสูตรอาหาร'),
+                                title: const Text('รายละเอียด'),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
@@ -161,7 +161,7 @@ class _HomepageFeedState extends State<HomepageFeed> {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: const Text('ยืนยันการแก้ไข'),
+                                    child: const Text('ปิด'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -171,7 +171,7 @@ class _HomepageFeedState extends State<HomepageFeed> {
                             },
                           );
                         },
-                        child: Text('ดูรายละเอียดสูตรอาหาร'),
+                        child: Text('ดูสูตรอาหาร'),
                       ),
                     ),
                     // IconButton(

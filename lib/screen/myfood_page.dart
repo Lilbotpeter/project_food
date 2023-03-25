@@ -169,7 +169,7 @@ class _MyfoodPageState extends State<MyfoodPage> {
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('แก้ไขสูตรอาหาร'),
+                                title: const Text(''),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
