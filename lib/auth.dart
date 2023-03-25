@@ -37,9 +37,13 @@ class Auth {
       email: email,
       password: password,
     );
-    await _firestore
-        .collection('Person')
-        .add({'Email': user?.email, 'Uid': user?.uid});
+    await _firestore.collection('Person').add({
+      'Email': user?.email,
+      'Uid': user?.uid,
+      'Name': '',
+      'ImageP': '',
+      'Phone': ''
+    });
   }
 
   //Logout

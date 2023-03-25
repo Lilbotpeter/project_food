@@ -17,10 +17,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   List<PersonModel> personModels = [];
 
-  // String s1 = "dfkjhkdfhk";
-  // String s2 = "789456123";
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
@@ -32,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     CollectionReference collectionReference =
-        firestore.collection('users'); //collection Person  //await
+        firestore.collection('Person'); //collection Person  //await
     await collectionReference.snapshots().listen((response) {
       List<DocumentSnapshot> snapshots =
           response.docs; //snapshot from firestore [array]
@@ -42,10 +38,11 @@ class _ProfilePageState extends State<ProfilePage> {
             PersonModel.fromMap(snapshot.data() as Map<String, dynamic>);
 
         //personModel.uid = snapshot.id;
-
+        //print("Statrt setState");
         setState(() {
-          //print("object");
-          personModels.add(personModel);
+          if (personModel.uid == user?.uid) {
+            personModels.add(personModel);
+          }
         });
       }
     });
@@ -75,24 +72,117 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget showName(int index) {
+    return Text(
+      personModels[index].name,
+      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget showEmail(int index) {
+    return Text(
+      personModels[index].email,
+    );
+  }
+
+  Widget showPhone(int index) {
+    return Text(personModels[index].phone);
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(user!.email ?? '');
-    print(user!.phoneNumber ?? '');
-    print('photoURL');
-    print(user!.photoURL ?? '');
-    print(user?.uid ?? '');
-
     return Scaffold(
+      appBar: AppBar(
+        title: _userUID(),
+        actions: [
+          _signOutButton(),
+        ],
+        backgroundColor: Colors.orangeAccent,
+      ),
       body: SafeArea(
-          child: Center(
-        child: Container(
-            child: Column(
-          children: <Widget>[
-            _signOutButton(),
-          ],
-        )),
-      )),
+        child: Center(
+          child: Container(
+            child: ListView.builder(
+              itemCount: personModels.length,
+              itemBuilder: (BuildContext buildContext, int index) {
+                return Card(
+                  child: Column(children: <Widget>[
+                    showEmail(index),
+                    showName(index),
+                    showPhone(index),
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.amber,
+                            textStyle: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        onPressed: () {
+                          print('Start NaJa');
+
+                          print(personModels[index].uid);
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(''),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("แก้ไขข้อมูลผู้ใช้"),
+                                      // TextFormField(
+                                      //   controller: edit_name,
+                                      //   decoration: InputDecoration(
+                                      //     border: OutlineInputBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(20)),
+                                      //   ),
+                                      // ),
+                                      // Text("วัตถุดิบ"),
+                                      // TextFormField(
+                                      //   controller: edit_ingredients,
+                                      //   decoration: InputDecoration(
+                                      //     border: OutlineInputBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(20)),
+                                      //   ),
+                                      // ),
+                                      // Text("รายละเอียด"),
+                                      // TextFormField(
+                                      //   controller: edit_description,
+                                      //   decoration: InputDecoration(
+                                      //     border: OutlineInputBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(20)),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('ยืนยันการแก้ไข'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text('แก้ไขข้อมูล'),
+                      ),
+                    ),
+                  ]),
+                );
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

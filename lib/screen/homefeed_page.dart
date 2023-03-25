@@ -114,13 +114,7 @@ class _HomepageFeedState extends State<HomepageFeed> {
               itemBuilder: (BuildContext buildContext, int index) {
                 return Card(
                   child: Column(children: <Widget>[
-                    Text(''),
-                    Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.width * 0.5,
-                        child: Image.network(
-                          foodModels[index].food_image,
-                        )),
+                    showImage(index),
                     showName(
                       index,
                     ),
