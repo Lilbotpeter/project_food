@@ -144,15 +144,15 @@ class _HomepageFeedState extends State<HomepageFeed> {
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
-                                      Text("ชื่อสูตรอาหาร"),
+                                      Text("ชื่อสูตรอาหาร : "),
                                       Text(
                                         foodModels[index].food_name,
                                       ),
-                                      Text("วัตถุดิบ"),
+                                      Text("วัตถุดิบ : "),
                                       Text(
                                         foodModels[index].food_ingredients,
                                       ),
-                                      Text("รายละเอียด"),
+                                      Text("รายละเอียด : "),
                                       Text(
                                         foodModels[index].food_description,
                                       ),
