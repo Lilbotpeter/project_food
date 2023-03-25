@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
           isLogin = !isLogin;
         });
       },
-      child: Text(isLogin ? 'Register instead' : 'Login instead',
+      child: Text(isLogin ? 'Register' : 'Login',
           style: TextStyle(
               color: Colors.orange, fontSize: 15, fontWeight: FontWeight.bold)),
     );

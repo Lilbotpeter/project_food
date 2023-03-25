@@ -173,7 +173,10 @@ class _MyfoodPageState extends State<MyfoodPage> {
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
-                                      Text("ชื่อสูตรอาหาร"),
+                                      Text("ชื่อสูตรอาหาร : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
                                       TextFormField(
                                         controller: edit_name,
                                         decoration: InputDecoration(
@@ -182,7 +185,13 @@ class _MyfoodPageState extends State<MyfoodPage> {
                                                   BorderRadius.circular(20)),
                                         ),
                                       ),
-                                      Text("วัตถุดิบ"),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text("วัตถุดิบ : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
                                       TextFormField(
                                         controller: edit_ingredients,
                                         decoration: InputDecoration(
@@ -191,7 +200,13 @@ class _MyfoodPageState extends State<MyfoodPage> {
                                                   BorderRadius.circular(20)),
                                         ),
                                       ),
-                                      Text("รายละเอียด"),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text("วิธีการทำ : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
                                       TextFormField(
                                         controller: edit_description,
                                         decoration: InputDecoration(
