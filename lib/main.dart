@@ -7,7 +7,6 @@ import 'package:project_food/screen/homefeed_page.dart';
 import 'package:project_food/screen/insert_data.dart';
 import 'package:project_food/responsive/mobile_screen_layout.dart';
 import 'package:project_food/screen/login_screen.dart';
-
 import 'package:project_food/screen/profile_page.dart';
 import 'screen/display_data.dart';
 import 'screen/myfood_page.dart';

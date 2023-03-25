@@ -52,7 +52,9 @@ class _MyfoodPageState extends State<MyfoodPage> {
 
         setState(() {
           //print("object");
-          foodModels.add(foodModel);
+          if (user?.uid == foodModel.user_id) {
+            foodModels.add(foodModel);
+          }
         });
       }
     });
@@ -110,36 +112,6 @@ class _MyfoodPageState extends State<MyfoodPage> {
     );
   }
 
-//-------------------------------------------------------------------------------------
-  // Future<void> _showMyDialog() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('แก้ไขสูตรอาหาร'),
-  //         content: SingleChildScrollView(
-  //           child: ListBody(
-  //             children: <Widget>[
-  //               textFontF(edit_name),
-  //               textFontF(edit_ingredients),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('ยืนยันการแก้ไข'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-//-------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
