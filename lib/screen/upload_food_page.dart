@@ -2,17 +2,20 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_food/api/firebase_api.dart'; //import api for upload
 import 'package:project_food/main.dart';
-import 'package:project_food/screen/home_feed.dart';
+import 'package:project_food/screen/myfood_page.dart';
 import 'package:project_food/widgets/button_widget.dart';
 import 'package:path/path.dart'; //import for basename
 import 'package:project_food/widgets/text_field_data.dart';
 
 import 'package:project_food/widgets/text_field_input.dart';
+
+import '../auth.dart';
 
 class UploadFoodPage extends StatefulWidget {
   const UploadFoodPage({Key? key}) : super(key: key);
@@ -23,6 +26,9 @@ class UploadFoodPage extends StatefulWidget {
 
 class _UploadFoodPageState extends State<UploadFoodPage> {
   UploadTask? task;
+
+  final User? user = Auth().currentUser;
+
   File? file; //file can null
   PlatformFile? pickedFile;
   String? food_id;
@@ -37,6 +43,11 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
       food_time,
       food_nation,
       food_point;
+
+  //Current UID
+  Widget _userUID() {
+    return Text(user?.uid ?? 'User UID');
+  }
 
   //In&Out File Part
   //Function selectFile
@@ -129,11 +140,12 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     dataMap['Food_Time'] = food_time;
     dataMap['Food_Nation'] = food_nation;
     dataMap['Food_Point'] = food_point;
+    dataMap['User_id'] = user?.uid;
 
     await firestore.collection('Foods').doc().set(dataMap).then((value) {
-      print('Insert Success');
+      print('Insert Success' + '$user?.uid');
       MaterialPageRoute route = MaterialPageRoute(
-        builder: (value) => HomeFeed(),
+        builder: (value) => MyfoodPage(),
       ); //Route to Home_feed
       //Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
     });

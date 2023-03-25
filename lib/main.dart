@@ -3,11 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:project_food/screen/display_data.dart';
+import 'package:project_food/screen/homefeed_page.dart';
 import 'package:project_food/screen/insert_data.dart';
 import 'package:project_food/responsive/mobile_screen_layout.dart';
 import 'package:project_food/screen/login_screen.dart';
+
+import 'package:project_food/screen/profile_page.dart';
 import 'screen/display_data.dart';
-import 'screen/home_feed.dart';
+import 'screen/myfood_page.dart';
 import 'screen/upload_food_page.dart';
 import 'package:project_food/responsive/responsive_layout.dart';
 import 'package:project_food/widget_tree.dart';
@@ -53,10 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _curIndex = 0;
 
   final tabs = [
-    HomeFeed(),
-    Display(),
-    InsertData(),
+    HomepageFeed(),
+    MyfoodPage(),
     UploadFoodPage(),
+    ProfilePage(),
   ];
 
   void onTabTap(int index) {
@@ -100,16 +103,16 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'หน้าหลัก',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.play_arrow_outlined),
-              label: 'Display',
+              icon: Icon(Icons.food_bank),
+              label: 'สูตรของฉัน',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
           BottomNavigationBarItem(
               icon: Icon(Icons.add),
-              label: 'Insert',
+              label: 'เพิ่มสูตร',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.food_bank),
-              label: 'Food Upload',
+              icon: Icon(Icons.person_rounded),
+              label: 'โปรไฟล์',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
         ],
       ),

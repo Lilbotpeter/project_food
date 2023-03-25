@@ -10,16 +10,15 @@ import '../model/food_model.dart';
 //Authen Current User *
 final User? user = Auth().currentUser;
 
-class HomeFeed extends StatefulWidget {
-  const HomeFeed({Key? key}) : super(key: key);
+class MyfoodPage extends StatefulWidget {
+  const MyfoodPage({Key? key}) : super(key: key);
 
   @override
-  State<HomeFeed> createState() => _HomeFeedState();
+  State<MyfoodPage> createState() => _MyfoodPageState();
 }
 
-class _HomeFeedState extends State<HomeFeed> {
+class _MyfoodPageState extends State<MyfoodPage> {
   List<FoodModel> foodModels = [];
-
   final TextEditingController edit_name = TextEditingController();
   final TextEditingController edit_description = TextEditingController();
   final TextEditingController edit_ingredients = TextEditingController();
@@ -30,6 +29,11 @@ class _HomeFeedState extends State<HomeFeed> {
     super.initState();
     readData();
   }
+
+// _HomeFeedState(String id, {Key? key}) : super(key: key) {
+//    // _documentReference = FirebaseFirestore.instance.collection('Foods').doc(id);
+//    // _future = _documentReference.get();
+//   }
 
   Future<void> readData() async {
     //read data
@@ -107,30 +111,51 @@ class _HomeFeedState extends State<HomeFeed> {
   }
 
 //-------------------------------------------------------------------------------------
+  // Future<void> _showMyDialog() async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text('แก้ไขสูตรอาหาร'),
+  //         content: SingleChildScrollView(
+  //           child: ListBody(
+  //             children: <Widget>[
+  //               textFontF(edit_name),
+  //               textFontF(edit_ingredients),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: const Text('ยืนยันการแก้ไข'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
 //-------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 30,
-        leading: Row(
-          children: [
-            const SizedBox(
-              width: 100,
-            ),
-            _userUID()
-          ],
-        ),
+        title: _userUID(),
+        // leadingWidth: 10,
+        // leading: Row(
+        //   children: [
+        //     const SizedBox(
+        //       width: 10,
+        //     ),
+        //     _userUID()
+        //   ],
+        // ),
         actions: [
-          //_signOutButton(),
-          new IconButton(
-            icon: new Icon(Icons.search),
-            highlightColor: Colors.pink,
-            onPressed: () {
-              print('Search Strat');
-            },
-          ),
+          _signOutButton(),
         ],
         backgroundColor: Colors.orangeAccent,
       ),
@@ -142,6 +167,7 @@ class _HomeFeedState extends State<HomeFeed> {
               itemBuilder: (BuildContext buildContext, int index) {
                 return Card(
                   child: Column(children: <Widget>[
+                    Text(''),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: MediaQuery.of(context).size.width * 0.5,
@@ -153,6 +179,7 @@ class _HomeFeedState extends State<HomeFeed> {
                     ),
                     showDescription(index),
                     showIngredients(index),
+
                     Center(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -228,6 +255,14 @@ class _HomeFeedState extends State<HomeFeed> {
                               );
                             },
                           );
+                          // final docker = FirebaseFirestore.instance
+                          //     .collection('Foods')
+                          //     .doc(foodModels[index].food_id);
+                          // docker.update({
+                          //   'Food_Description': edit_name,
+                          //   //   'Food_Ingredients': edit_description,
+                          //   //   'Food_Name': edit_ingredients,
+                          // });
                         },
                         child: Text('แก้ไขข้อมูล'),
                       ),
@@ -253,6 +288,16 @@ class _HomeFeedState extends State<HomeFeed> {
                         child: Text('ลบข้อมูล'),
                       ),
                     ),
+                    // IconButton(
+                    //   icon: new Icon(Icons.edit),
+                    //   highlightColor: Colors.pink,
+                    //   onPressed: () {
+                    //     print("kuay");
+                    //     MaterialPageRoute route = MaterialPageRoute(
+                    //       builder: (Index) => UploadFoodPage(),
+                    //     );
+                    //   },
+                    // ),
                   ]),
                 );
               },
@@ -261,6 +306,8 @@ class _HomeFeedState extends State<HomeFeed> {
         ),
       ),
     );
+
+    //Stream<List<PersonModel>> readData
   }
 }
 

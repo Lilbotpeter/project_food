@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 //Create Class
-class Auth{
+class Auth {
 //instance
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -16,11 +16,11 @@ class Auth{
     //Parameter
     required String email,
     required String password,
-  }) async{
+  }) async {
     await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
-     password: password,
-     );
+      password: password,
+    );
   }
 
   //Regiter
@@ -30,14 +30,13 @@ class Auth{
     //required name ,phone,data user
   }) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
-     email: email,
-     password: password,
-     );
+      email: email,
+      password: password,
+    );
   }
 
   //Logout
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 }
-

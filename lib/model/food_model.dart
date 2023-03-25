@@ -12,7 +12,8 @@ class FoodModel {
       food_description,
       food_time,
       food_nation,
-      food_point;
+      food_point,
+      user_id;
   //Method
   FoodModel(
       this.food_id,
@@ -26,7 +27,8 @@ class FoodModel {
       this.food_description,
       this.food_time,
       this.food_nation,
-      this.food_point);
+      this.food_point,
+      this.user_id);
 
   FoodModel.fromMap(Map<String, dynamic> dataMap) {
     food_id = dataMap['Food_id'];
@@ -41,6 +43,7 @@ class FoodModel {
     //food_time = dataMap['Food_Time'];
     //food_nation = dataMap['Food_Nation'];
     //food_point = dataMap['Food_Point'];
+    user_id = dataMap['User_id'];
   } //setter
 
   Map<String, dynamic> toJson() => {
