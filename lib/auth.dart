@@ -1,5 +1,9 @@
 //Firebase Auth
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final User? user = Auth().currentUser;
 
 //Create Class
 class Auth {
@@ -33,6 +37,9 @@ class Auth {
       email: email,
       password: password,
     );
+    await _firestore
+        .collection('Person')
+        .add({'Email': user?.email, 'Uid': user?.uid});
   }
 
   //Logout
