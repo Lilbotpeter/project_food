@@ -52,7 +52,9 @@ class _MyfoodPageState extends State<MyfoodPage> {
 
         setState(() {
           //print("object");
-          foodModels.add(foodModel);
+          if (user?.uid == foodModel.user_id) {
+            foodModels.add(foodModel);
+          }
         });
       }
     });
