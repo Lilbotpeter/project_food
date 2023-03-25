@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'หน้าหลัก',
               backgroundColor: Color.fromARGB(255, 248, 60, 2)),
           BottomNavigationBarItem(
               icon: Icon(Icons.play_arrow_outlined),
