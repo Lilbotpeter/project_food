@@ -266,13 +266,13 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
             SizedBox(
               height: 8,
             ),
-            Text(
-              ('$filename'),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            // Text(
+            //   ('$filename'),
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
             SizedBox(
               height: 15.0,
             ), //Under filename for "Spacebar naja"
