@@ -98,7 +98,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
                 (progress * 100).toStringAsFixed(2); //Percent 100% 0.00
             if (progress.isFinite) {
               Fluttertoast.showToast(
-                msg: "Added Success!",
+                msg: "อัพโหลดสำเร็จ!",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -235,7 +235,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   Widget build(BuildContext context) {
     final filename = file != null
         ? basename(file!.path)
-        : 'No file Selected!'; //set basename
+        : 'ยังไม่มีไฟล์ที่เลือก!'; //set basename
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Upload Food'),
@@ -261,18 +261,18 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
             ButtonWidget(
                 //Button Select file
                 icon: Icons.attach_file,
-                text: 'Select File',
+                text: 'เลือกไฟล์',
                 onClick: selectFile),
             SizedBox(
               height: 8,
             ),
-            Text(
-              ('$filename'),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            // Text(
+            //   ('$filename'),
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
             SizedBox(
               height: 15.0,
             ), //Under filename for "Spacebar naja"
@@ -283,7 +283,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
             ButtonWidget(
                 //Button Upload file
                 icon: Icons.upload_file_sharp,
-                text: 'Upload File',
+                text: 'อัพโหลด',
                 onClick: uploadFile),
             SizedBox(
               height: 20,
