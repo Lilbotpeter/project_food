@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_food/screen/reply_food.dart';
 
 import '../auth.dart';
 import '../model/food_model.dart';
@@ -169,6 +170,16 @@ class _HomepageFeedState extends State<HomepageFeed> {
                                   ),
                                 ),
                                 actions: <Widget>[
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ReplyFood()),
+                                        );
+                                      },
+                                      child: Text('ทำอาหาร')),
                                   TextButton(
                                     child: const Text('ปิด'),
                                     onPressed: () {

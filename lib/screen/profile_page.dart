@@ -148,18 +148,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   BorderRadius.circular(20)),
                                         ),
                                       ),
-                                      Text("อีเมล : "),
-                                      SizedBox(
-                                        height: 10.0,
-                                      ),
-                                      TextFormField(
-                                        controller: edit_email,
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                        ),
-                                      ),
+                                      // Text("อีเมล : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // TextFormField(
+                                      //   controller: edit_email,
+                                      //   decoration: InputDecoration(
+                                      //     border: OutlineInputBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(20)),
+                                      //   ),
+                                      // ),
                                       Text("เบอร์โทร : "),
                                       SizedBox(
                                         height: 10.0,
@@ -183,13 +183,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
                                       print(personModels[index].uid);
                                       late String _editname = edit_name.text;
-                                      late String _editemail = edit_email.text;
+                                      //late String _editemail = edit_email.text;
                                       late String _editphon = edit_phon.text;
                                       final docker = FirebaseFirestore.instance
                                           .collection('Person')
                                           .doc(personModels[index].uid);
                                       docker.update({
-                                        'Email': _editemail,
+                                        // 'Email': _editemail,
                                         'Name': _editname,
                                         'Phone': _editphon,
                                       });
@@ -204,28 +204,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text('แก้ไขข้อมูล'),
                       ),
                     ),
-                    Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.redAccent,
-                            textStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )),
-                        onPressed: () {
-                          print('Delete NaJa');
+                    // Center(
+                    //   child: ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //         primary: Colors.redAccent,
+                    //         textStyle: TextStyle(
+                    //           fontSize: 15,
+                    //           fontWeight: FontWeight.bold,
+                    //         )),
+                    //     onPressed: () {
+                    //       print('Delete NaJa');
 
-                          print(personModels[index].uid);
-                          final docker = FirebaseFirestore.instance
-                              .collection('Person')
-                              .doc(personModels[index].uid);
-                          //docker.delete();
-                          docker.delete();
-                          signOut();
-                        },
-                        child: Text('ลบข้อมูล'),
-                      ),
-                    ),
+                    //       print(personModels[index].uid);
+                    //       final docker = FirebaseFirestore.instance
+                    //           .collection('Person')
+                    //           .doc(personModels[index].uid);
+                    //       //docker.delete();
+                    //       docker.delete();
+                    //       signOut();
+                    //     },
+                    //     child: Text('ลบข้อมูล'),
+                    //   ),
+                    // ),
                   ]),
                 );
               },
