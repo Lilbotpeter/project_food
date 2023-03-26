@@ -16,7 +16,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   List<PersonModel> personModels = [];
-
+  final TextEditingController edit_name = TextEditingController();
+  final TextEditingController edit_email = TextEditingController();
+  final TextEditingController edit_phon = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -43,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
           if (personModel.uid == user?.uid) {
             personModels.add(personModel);
           }
+          personModel.uid = snapshot.id;
         });
       }
     });
@@ -122,6 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           print('Start NaJa');
 
                           print(personModels[index].uid);
+
                           showDialog<void>(
                             context: context,
                             barrierDismissible: false, // user must tap button!
@@ -132,32 +136,42 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: ListBody(
                                     children: <Widget>[
                                       Text("แก้ไขข้อมูลผู้ใช้"),
-                                      // TextFormField(
-                                      //   controller: edit_name,
-                                      //   decoration: InputDecoration(
-                                      //     border: OutlineInputBorder(
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(20)),
-                                      //   ),
-                                      // ),
-                                      // Text("วัตถุดิบ"),
-                                      // TextFormField(
-                                      //   controller: edit_ingredients,
-                                      //   decoration: InputDecoration(
-                                      //     border: OutlineInputBorder(
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(20)),
-                                      //   ),
-                                      // ),
-                                      // Text("รายละเอียด"),
-                                      // TextFormField(
-                                      //   controller: edit_description,
-                                      //   decoration: InputDecoration(
-                                      //     border: OutlineInputBorder(
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(20)),
-                                      //   ),
-                                      // ),
+                                      Text("ชื่อผู้ใช้ : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      TextFormField(
+                                        controller: edit_name,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                        ),
+                                      ),
+                                      Text("อีเมล : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      TextFormField(
+                                        controller: edit_email,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                        ),
+                                      ),
+                                      Text("เบอร์โทร : "),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      TextFormField(
+                                        controller: edit_phon,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -165,6 +179,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                   TextButton(
                                     child: const Text('ยืนยันการแก้ไข'),
                                     onPressed: () {
+                                      print('Update NaJa');
+
+                                      print(personModels[index].uid);
+                                      late String _editname = edit_name.text;
+                                      late String _editemail = edit_email.text;
+                                      late String _editphon = edit_phon.text;
+                                      final docker = FirebaseFirestore.instance
+                                          .collection('Person')
+                                          .doc(personModels[index].uid);
+                                      docker.update({
+                                        'Email': _editemail,
+                                        'Name': _editname,
+                                        'Phone': _editphon,
+                                      });
                                       Navigator.of(context).pop();
                                     },
                                   ),
@@ -174,6 +202,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Text('แก้ไขข้อมูล'),
+                      ),
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.redAccent,
+                            textStyle: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        onPressed: () {
+                          print('Delete NaJa');
+
+                          print(personModels[index].uid);
+                          final docker = FirebaseFirestore.instance
+                              .collection('Person')
+                              .doc(personModels[index].uid);
+                          //docker.delete();
+                          docker.delete();
+                          signOut();
+                        },
+                        child: Text('ลบข้อมูล'),
                       ),
                     ),
                   ]),
