@@ -135,7 +135,7 @@ class _HomepageFeedState extends State<HomepageFeed> {
                             barrierDismissible: false, // user must tap button!
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('รายละเอียด'),
+                                title: const Text('รายละเอียด:'),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
@@ -159,12 +159,85 @@ class _HomepageFeedState extends State<HomepageFeed> {
                                       SizedBox(
                                         height: 10.0,
                                       ),
-                                      Text("วิธีการทำ : "),
+                                      // Text("วิธีการทำ : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_solution,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("ระดับความยาก : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_level,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("วิดิโอ : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_video,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("ประเภท : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_type,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("เวลาในการทำ : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_time,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("สัญชาติอาหาร : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_nation,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text("คะแนนอาหาร : "),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      // Text(
+                                      //   foodModels[index].food_point,
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.0,
+                                      // ),
+                                      Text("รายละเอียด : "),
                                       SizedBox(
                                         height: 10.0,
                                       ),
                                       Text(
                                         foodModels[index].food_description,
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
                                       ),
                                     ],
                                   ),

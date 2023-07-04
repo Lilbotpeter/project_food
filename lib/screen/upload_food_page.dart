@@ -33,7 +33,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
   PlatformFile? pickedFile;
   String? food_id;
   String? urlDownload,
-      food_name,
+      food_name = '',
       food_video,
       food_level,
       food_ingredients,
@@ -129,7 +129,7 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
 
     Map<String, dynamic> dataMap = Map(); //dynamic = data type everything
     dataMap['Food_id'] = food_id;
-    dataMap['Food_Name'] = food_name;
+    dataMap['Food_Name'] = food_name!.isNotEmpty ? food_name : 'N/A';
     dataMap['Food_Image'] = urlDownload;
     dataMap['Food_Video'] = food_video;
     dataMap['Food_Level'] = food_level;
@@ -151,12 +151,20 @@ class _UploadFoodPageState extends State<UploadFoodPage> {
     });
   }
 
+  void onNameChanged(String value) {
+    setState(() {
+      food_name = value.trim();
+      // if (value.isEmpty) {
+      //   food_name = 'N/A';
+      // } else {
+      //   food_name = value.trim();
+      // }
+    });
+  }
+
   Widget name(context) {
     return TextField(
-      onChanged: (value) {
-        //value = String stirng
-        food_name = value.trim(); //cut space font and back
-      },
+      onChanged: onNameChanged,
       decoration: InputDecoration(
         icon: Icon(Icons.format_align_center),
         border:
